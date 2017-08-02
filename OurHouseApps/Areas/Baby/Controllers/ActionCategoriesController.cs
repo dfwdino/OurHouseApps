@@ -111,7 +111,8 @@ namespace OurHouseApps.Areas.Baby.Controllers
         public ActionResult DeleteConfirmed(Guid id)
         {
             ActionCategory actionCategory = db.ActionCategories.Find(id);
-            db.ActionCategories.Remove(actionCategory);
+            actionCategory.Delete = true;
+            //db.ActionCategories.Remove(actionCategory);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

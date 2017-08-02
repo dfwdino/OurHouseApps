@@ -1,7 +1,18 @@
 ﻿@model IEnumerable<OurHouseApps.ActionCategory>
 
+@using System.Web.Optimization
+
+s
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryIU")
+@Scripts.Render("~/bundles/bootstrap")
+
+@Styles.Render("~/Content/css")
+
+
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Index</h2>
@@ -14,18 +25,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Category)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Delete)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IPAddress)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Longitude)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Latitude)
-        </th>
         <th></th>
     </tr>
 
@@ -33,18 +32,6 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Category)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Delete)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IPAddress)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Longitude)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Latitude)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Index }) |
