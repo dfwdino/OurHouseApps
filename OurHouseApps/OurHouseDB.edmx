@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SDNAppsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SDNAppsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ActionCategory">
           <Key>
             <PropertyRef Name="Index" />
@@ -106,18 +106,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_LiquidSize_LiquidSize">
-          <End Role="LiquidSize" Type="Self.LiquidSize" Multiplicity="1" />
-          <End Role="LiquidSize1" Type="Self.LiquidSize" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="LiquidSize">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="LiquidSize1">
-              <PropertyRef Name="Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Reminders_Actions">
           <End Role="Actions" Type="Self.Actions" Multiplicity="1" />
           <End Role="Reminders" Type="Self.Reminders" Multiplicity="*" />
@@ -139,6 +127,18 @@
             </Principal>
             <Dependent Role="Reminders">
               <PropertyRef Name="RemeberType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ThingsDone_Actions">
+          <End Role="Actions" Type="Self.Actions" Multiplicity="1" />
+          <End Role="ThingsDone" Type="Self.ThingsDone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Actions">
+              <PropertyRef Name="index" />
+            </Principal>
+            <Dependent Role="ThingsDone">
+              <PropertyRef Name="Action" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -178,10 +178,6 @@
             <End Role="ActionCategory" EntitySet="ActionCategory" />
             <End Role="Actions" EntitySet="Actions" />
           </AssociationSet>
-          <AssociationSet Name="FK_LiquidSize_LiquidSize" Association="Self.FK_LiquidSize_LiquidSize">
-            <End Role="LiquidSize" EntitySet="LiquidSize" />
-            <End Role="LiquidSize1" EntitySet="LiquidSize" />
-          </AssociationSet>
           <AssociationSet Name="FK_Reminders_Actions" Association="Self.FK_Reminders_Actions">
             <End Role="Actions" EntitySet="Actions" />
             <End Role="Reminders" EntitySet="Reminders" />
@@ -189,6 +185,10 @@
           <AssociationSet Name="FK_Reminders_ReminderTypes" Association="Self.FK_Reminders_ReminderTypes">
             <End Role="ReminderTypes" EntitySet="ReminderTypes" />
             <End Role="Reminders" EntitySet="Reminders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ThingsDone_Actions" Association="Self.FK_ThingsDone_Actions">
+            <End Role="Actions" EntitySet="Actions" />
+            <End Role="ThingsDone" EntitySet="ThingsDone" />
           </AssociationSet>
           <AssociationSet Name="FK_ThingsDone_BabyNames" Association="Self.FK_ThingsDone_BabyNames">
             <End Role="BabyNames" EntitySet="BabyNames" />
@@ -199,8 +199,7 @@
             <End Role="ThingsDone" EntitySet="ThingsDone" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SDNAppsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -229,6 +228,7 @@
           <Property Name="Latitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ActionCategory" Relationship="Self.FK_Actions_ActionCategory" FromRole="Actions" ToRole="ActionCategory" />
           <NavigationProperty Name="Reminders" Relationship="Self.FK_Reminders_Actions" FromRole="Actions" ToRole="Reminders" />
+          <NavigationProperty Name="ThingsDones" Relationship="SDNAppsModel.FK_ThingsDone_Actions" FromRole="Action" ToRole="ThingsDone" />
         </EntityType>
         <EntityType Name="BabyName">
           <Key>
@@ -302,6 +302,7 @@
           <Property Name="BabyNameID" Type="Int32" />
           <NavigationProperty Name="BabyName" Relationship="Self.FK_ThingsDone_BabyNames" FromRole="ThingsDone" ToRole="BabyNames" />
           <NavigationProperty Name="LiquidSize" Relationship="Self.FK_ThingsDone_LiquidSize" FromRole="ThingsDone" ToRole="LiquidSize" />
+          <NavigationProperty Name="Action1" Relationship="SDNAppsModel.FK_ThingsDone_Actions" FromRole="ThingsDone" ToRole="Action" />
         </EntityType>
         <Association Name="FK_Actions_ActionCategory">
           <End Role="ActionCategory" Type="Self.ActionCategory" Multiplicity="0..1" />
@@ -391,7 +392,23 @@
             <End Role="ReminderTypes" EntitySet="ReminderTypes" />
             <End Role="Reminders" EntitySet="Reminders" />
           </AssociationSet>
+          <AssociationSet Name="FK_ThingsDone_Actions" Association="SDNAppsModel.FK_ThingsDone_Actions">
+            <End Role="Action" EntitySet="Actions" />
+            <End Role="ThingsDone" EntitySet="ThingsDones" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_ThingsDone_Actions">
+          <End Type="SDNAppsModel.Action" Role="Action" Multiplicity="1" />
+          <End Type="SDNAppsModel.ThingsDone" Role="ThingsDone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Action">
+              <PropertyRef Name="index" />
+            </Principal>
+            <Dependent Role="ThingsDone">
+              <PropertyRef Name="Action" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

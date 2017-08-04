@@ -30,5 +30,6 @@ namespace OurHouseApps
     
         public virtual BabyName BabyName { get; set; }
         public virtual LiquidSize LiquidSize { get; set; }
+        public virtual Action Action1 { get; set; }
     }
 }

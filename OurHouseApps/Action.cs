@@ -18,6 +18,7 @@ namespace OurHouseApps
         public Action()
         {
             this.Reminders = new HashSet<Reminder>();
+            this.ThingsDones = new HashSet<ThingsDone>();
         }
     
         public int index { get; set; }
@@ -31,5 +32,7 @@ namespace OurHouseApps
         public virtual ActionCategory ActionCategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reminder> Reminders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ThingsDone> ThingsDones { get; set; }
     }
 }

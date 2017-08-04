@@ -17,8 +17,29 @@ namespace OurHouseApps.Areas.Baby.Controllers
         // GET: Baby/ThingsDones
         public ActionResult Index()
         {
-            var thingsDones = db.ThingsDones.Include(t => t.BabyName).Include(t => t.LiquidSize);
-            return View(thingsDones.ToList());
+            DateTime maxdate = DateTime.Now.Date.AddDays(-3);
+            var thingsDones = db.ThingsDones.Include(t => t.BabyName).Include(t => t.LiquidSize).Where(td => td.StartTime > maxdate).OrderBy(m => m.StartTime);
+
+            List<Models.ThingsDoneModelView> tdmv = new List<Models.ThingsDoneModelView>();
+
+            foreach (ThingsDone item in thingsDones)
+            {
+                Models.ThingsDoneModelView tdmodelview = new Models.ThingsDoneModelView() { Action = item.Action1, ActionID = item.Action, Baby = item.BabyName,
+                    BabyNameID = (int)item.BabyNameID,
+                    EndTime = item.EndTime,
+                    LiquidSizeID = item.LiquidSizeID,
+                    Notes = item.Notes,
+                    OZ = item.OZ,
+                    StartTime = item.StartTime,
+                    TotalTime = item.EndTime == null ? null : item.EndTime.Value.Subtract(item.StartTime).ToString(),
+                    index = item.index
+                };
+
+                tdmv.Add(tdmodelview);
+            }
+            
+
+            return View(tdmv);
         }
 
         // GET: Baby/ThingsDones/Details/5

@@ -28,7 +28,37 @@
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("List", "Index", "ActionCategories",new { Area = "Baby" },new { })</li>
                             <li role="separator" class="divider"></li>
-                            <li>@Html.ActionLink("Add", "Add", "ActionCategories", new { Area = "Baby" }, new { })</li>
+                            <li>@Html.ActionLink("Create", "Add", "ActionCategories", new { Area = "Baby" }, new { })</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            Actions<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("List", "Index", "Actions", new { Area = "Baby" }, new { })</li>
+                            <li role="separator" class="divider"></li>
+                            <li>@Html.ActionLink("Create", "Add", "Actions", new { Area = "Baby" }, new { })</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            Liquid Sizes<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("List", "Index", "LiquidSizes", new { Area = "Baby" }, new { })</li>
+                            <li role="separator" class="divider"></li>
+                            <li>@Html.ActionLink("Create", "Add", "LiquidSizes", new { Area = "Baby" }, new { })</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                           Items<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("List", "Index", "ThingsDones", new { Area = "Baby" }, new { })</li>
+                            <li role="separator" class="divider"></li>
+                            <li>@Html.ActionLink("Create", "Add", "ThingsDones", new { Area = "Baby" }, new { })</li>
                         </ul>
                     </li>
                 </ul>
