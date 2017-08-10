@@ -32,5 +32,7 @@ namespace OurHouseApps
         public virtual DbSet<Reminder> Reminders { get; set; }
         public virtual DbSet<ReminderType> ReminderTypes { get; set; }
         public virtual DbSet<ThingsDone> ThingsDones { get; set; }
+
+        public System.Data.Entity.DbSet<OurHouseApps.Areas.Baby.Models.ThingsDoneModelCreate> ThingsDoneModelCreates { get; set; }
     }
 }

@@ -14,6 +14,6 @@ function getLocation() {
 
 }
 function showPosition(position) {
-    document.getElementById("Lat").value = position.coords.latitude;
-    document.getElementById("Long").value = position.coords.longitude;
+    document.getElementById("Latitude").value = position.coords.latitude;
+    document.getElementById("Longitude").value = position.coords.longitude;
 }

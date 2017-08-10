@@ -7,12 +7,22 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using OurHouseApps;
+using Microsoft.Ajax.Utilities;
 
 namespace OurHouseApps.Areas.Baby.Controllers
 {
     public class ThingsDonesController : Controller
     {
         private SDNAppsEntities db = new SDNAppsEntities();
+
+
+        public JsonResult List(string term)
+        {
+
+            return Json(db.Actions.Where(m => m.Title.Contains(term)).Select(m => new { value = m.Title, m.index }).OrderBy(m => m.value).DistinctBy(m => m.value),
+                    JsonRequestBehavior.AllowGet);
+        }
+
 
         // GET: Baby/ThingsDones
         public ActionResult Index()
@@ -62,7 +72,12 @@ namespace OurHouseApps.Areas.Baby.Controllers
         {
             ViewBag.BabyNameID = new SelectList(db.BabyNames, "ID", "BabyName1");
             ViewBag.LiquidSizeID = new SelectList(db.LiquidSizes, "Id", "Type");
-            return View();
+            ViewBag.Actions = new SelectList(db.Actions, "index", "Title");
+
+            Models.ThingsDoneModelCreate tdmc = new Models.ThingsDoneModelCreate();
+            
+
+            return View(tdmc);
         }
 
         // POST: Baby/ThingsDones/Create
